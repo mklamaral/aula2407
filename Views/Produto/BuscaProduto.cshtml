@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AulaDeASPNet.Models.Produto>
+
+@{
+    ViewData["Title"] = "BuscaProduto";
+    Layout = "~/Views/Shared/_NossoLayout.cshtml";
+}
+
+<h1 class="display-4 align-content-center">Produtos</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="CadastroProduto">Novo Produto</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qtde)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorUnit)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qtde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorUnit)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
