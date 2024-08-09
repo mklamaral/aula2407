@@ -15,7 +15,7 @@ namespace AulaDeASPNet.Controllers
         }
         //Buscar Clientes
         public async Task<IActionResult> BuscaCliente()
-        { 
+        {
             return View(await _context.Clientes.ToListAsync());
         }
 
@@ -32,9 +32,16 @@ namespace AulaDeASPNet.Controllers
         }
 
         // Cadastro de Clientes
-        public IActionResult CadastroCliente()
+        public async Task<IActionResult> CadastroCliente(int? Id)
         {
+            if (Id == null)
+            {
                 return View();
+            }
+            else
+            {
+                return View(await _context.Clientes.FindAsync(Id));
+            }
         }
 
         [HttpPost]
@@ -43,8 +50,17 @@ namespace AulaDeASPNet.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
-                await _context.SaveChangesAsync();
+                if (cliente.Id != 0)
+                {
+                    _context.Update(cliente);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    _context.Add(cliente);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("BuscaCliente");
+                }
                 return RedirectToAction("BuscaCliente");
             }
             return View(cliente);

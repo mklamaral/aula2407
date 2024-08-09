@@ -92,7 +92,7 @@
                 @Html.DisplayFor(modelItem => item.Complemento)
             </td> *@
             <td>
-                <a asp-action="AlterarCliente" asp-route-id="@item.Id">Alterar</a> |
+                    <a asp-action="CadastroCliente" asp-route-id="@item.Id">Alterar</a> |
                     <a asp-action="DetalhesCliente" asp-route-id="@item.Id">Detalhes</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
             </td>
