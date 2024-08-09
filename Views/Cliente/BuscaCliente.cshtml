@@ -22,10 +22,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.CPF)
             </th>
-            @* <th>
+            <th>
                 @Html.DisplayNameFor(model => model.Usuario)
             </th>
-            <th>
+  @*           <th>
                 @Html.DisplayNameFor(model => model.Senha)
             </th>
             <th>
@@ -64,10 +64,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
-            @* <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Usuario)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.Senha)
             </td>
             <td>
@@ -92,9 +92,9 @@
                 @Html.DisplayFor(modelItem => item.Complemento)
             </td> *@
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="AlterarCliente" asp-route-id="@item.Id">Alterar</a> |
+                    <a asp-action="DetalhesCliente" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
             </td>
         </tr>
 }

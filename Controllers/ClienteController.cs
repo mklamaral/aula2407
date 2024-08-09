@@ -19,10 +19,22 @@ namespace AulaDeASPNet.Controllers
             return View(await _context.Clientes.ToListAsync());
         }
 
+        //Detalhes Clientes
+        public async Task<IActionResult> DetalhesCliente(int Id)
+        {
+            return View(await _context.Clientes.FindAsync(Id));
+        }
+
+        //Alterar Clientes
+        public async Task<IActionResult> AlterarCliente(int Id)
+        {
+            return View(await _context.Clientes.FindAsync(Id));
+        }
+
         // Cadastro de Clientes
         public IActionResult CadastroCliente()
         {
-            return View();
+                return View();
         }
 
         [HttpPost]
