@@ -3,6 +3,20 @@
 @{
     ViewData["Title"] = "Buscar Cliente";
     Layout = "~/Views/Shared/_NossoLayout.cshtml";
+
+}
+
+@if (TempData["msg"] as string == "2")
+{
+    <div class="alert alert-success">
+        <span> Dados alterados com sucesso!</span>
+    </div>
+}
+else if (TempData["msg"] as string == "1")
+{
+    <div class="alert alert-success">
+        <span> Dados cadastrados com sucesso!</span>
+    </div>
 }
 
 <h1 class="display-4 align-content-center">Clientes</h1>
@@ -10,7 +24,96 @@
 <p>
     <a class="btn btn-primary" asp-action="CadastroCliente">Novo Cliente</a>
 </p>
-<table class="table">
+@{
+    ViewData["Title"] = "..::Buscar Clientes::..";
+    Layout = "~/Views/Shared/_NossoLayout.cshtml";
+    int qtdePaginas = ViewBag.QtdePaginas;
+    int paginaAtual = ViewBag.PaginaAtual;
+}
+
+@if (TempData["msg"] as string == "2")
+{
+    <div class="alert alert-success">
+        <span> Dados alterados com sucesso!</span>
+    </div>
+}
+else if (TempData["msg"] as string == "1")
+{
+    <div class="alert alert-success">
+        <span> Dados cadastrados com sucesso!</span>
+    </div>
+}
+
+<h1 class="display-4 align-content-center">Clientes</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="CadastroCliente">Novo Cliente</a>
+</p>
+
+
+<div class="container mt-5">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="itemTabs" role="tablist">
+        @for (int i = 1; i <= qtdePaginas; i++)
+        {
+            <li class="nav-item" role="presentation">
+                <a class="nav-link @(i == paginaAtual ? "active" : "")" id="tab-@i"
+                   data-bs-toggle="tab" href="#page-@i" role="tab" aria-controls="page-@i"
+                   aria-selected="@(i == qtdePaginas ? "true" : "false")">
+                    @i
+                </a>
+            </li>
+        }
+    </ul>
+    <!-- Tab content -->
+    <div class="tab-content">
+        @for (int i = 1; i <= qtdePaginas; i++)
+        {
+            <div class="tab-pane fade @(i == paginaAtual ? "show active" : "")"
+                 id="page-@i" role="tabpanel" aria-labelledby="tab-@i">
+                <table class="table table-bordered table-striped table-hover rounded">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Usuario)
+                            </th>
+                            <th>
+                                Ações
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Skip((i - 1) * 10).Take(10))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Usuario)
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" style="padding:0.2rem;" asp-action="CadastroCliente" asp-route-id="@item.Id">Alterar</a> |
+                                    <a class="btn btn-primary" style="padding:0.2rem;" asp-action="DetalhesCliente" asp-route-id="@item.Id">Detalhes</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+@* <table class="table">
     <thead>
         <tr>
             <th>
@@ -25,7 +128,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Usuario)
             </th>
-  @*           <th>
+            <th>
                 @Html.DisplayNameFor(model => model.Senha)
             </th>
             <th>
@@ -48,14 +151,14 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Complemento)
-            </th> *@
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td @* class="text-nowrap" *@>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
@@ -67,7 +170,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Usuario)
             </td>
-            @* <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Senha)
             </td>
             <td>
@@ -90,13 +193,13 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Complemento)
-            </td> *@
+            </td>
             <td>
                     <a asp-action="CadastroCliente" asp-route-id="@item.Id">Alterar</a> |
                     <a asp-action="DetalhesCliente" asp-route-id="@item.Id">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                    <a asp-action="DeletarCliente" asp-route-id="@item.Id">Deletar</a>
             </td>
         </tr>
 }
     </tbody>
-</table>
+</table> *@

@@ -5,6 +5,13 @@
 @{
     ViewData["Title"] = "Cadastro Cliente";
 }
+@if (TempData != null)
+{
+    <div class="alert alert-success">
+        <span>Teste</span>
+    </div>
+}
+
 @* Formulário Cadastro Cliente *@
 <div class="container">
     @* LINHA TITULO *@

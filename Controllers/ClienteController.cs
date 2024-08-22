@@ -14,9 +14,20 @@ namespace AulaDeASPNet.Controllers
             _context = context;
         }
         //Buscar Clientes
-        public async Task<IActionResult> BuscaCliente()
+        public async Task<IActionResult> BuscaCliente(int pagina = 1)
         {
-            return View(await _context.Clientes.ToListAsync());
+            var QtdeTClientes = 2;
+
+            var items = await _context.Clientes.ToListAsync();
+            var pagedItems = items.Skip((pagina - 1) * QtdeTClientes)
+                                  .Take(QtdeTClientes).ToList();
+
+            //Passando os dados e informações de paginação para a view
+            ViewBag.QtdePaginas = (int)Math.Ceiling((double)items.Count() / QtdeTClientes);
+            ViewBag.PaginaAtal = pagina;
+
+            return View(pagedItems);
+            //return View(await _context.Clientes.ToListAsync());
         }
 
         //Detalhes Clientes
@@ -54,16 +65,33 @@ namespace AulaDeASPNet.Controllers
                 {
                     _context.Update(cliente);
                     await _context.SaveChangesAsync();
+                    TempData["msg"] = "2";
                 }
                 else
                 {
                     _context.Add(cliente);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("BuscaCliente");
+                    TempData["msg"] = "1";
                 }
                 return RedirectToAction("BuscaCliente");
             }
             return View(cliente);
+        }
+
+        public async Task<IActionResult> DeletarCliente(int Id)
+        {
+            if (Id != 0)
+            {
+                var cliente = await _context.Clientes.FindAsync(Id);
+
+                if (cliente != null) 
+                {
+                    _context.Remove<Cliente>(cliente);
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("BuscaCliente");
+            }
+            return RedirectToAction("BuscaCliente");
         }
     }
 }

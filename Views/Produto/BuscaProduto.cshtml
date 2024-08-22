@@ -3,14 +3,31 @@
 @{
     ViewData["Title"] = "BuscaProduto";
     Layout = "~/Views/Shared/_NossoLayout.cshtml";
+    int qtdePaginas = ViewBag.QtdePainas;
+    int paginaAtual = ViewBag.PaginaAtual;
 }
-
+@if (TempData["msg"] as string == "2")
+{
+    <div class="alert alert-success">
+        <span> Dados alterados com sucesso!</span>
+    </div>
+}
+else if (TempData["msg"] as string == "1")
+{
+    <div class="alert alert-success">
+        <span> Dados cadastrados com sucesso!</span>
+    </div>
+}
 <h1 class="display-4 align-content-center">Produtos</h1>
 
 <p>
     <a class="btn btn-primary" asp-action="CadastroProduto">Novo Produto</a>
 </p>
-<table class="table">
+<div class="container mt-5">
+    <ul class="nav nav-tabs" id="itemTabs"
+</div>
+
+@* <table class="table">
     <thead>
         <tr>
             <th>
@@ -44,11 +61,12 @@
                 @Html.DisplayFor(modelItem => item.ValorUnit)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="CadastroProduto" asp-route-id="@item.Id">Alterar</a> |
+                <a asp-action="DetalhesProduto" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-action="DeletarProduto" asp-route-id="@item.Id">Deletar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+ *@

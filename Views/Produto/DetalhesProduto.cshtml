@@ -1,0 +1,43 @@
+﻿@model AulaDeASPNet.Models.Produto
+
+@{
+    ViewData["Title"] = "DetalhesProduto";
+    Layout = "~/Views/Shared/_NossoLayout.cshtml";
+}
+
+<h1>Detalhes Produto</h1>
+
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Qtde)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Qtde)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ValorUnit)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ValorUnit)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="CadastroProduto" asp-route-id="@Model?.Id">Alterar</a> |
+    <a asp-action="BuscaProduto">Voltar para a lista</a>
+</div>
