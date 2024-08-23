@@ -17,15 +17,16 @@ namespace AulaDeASPNet.Controllers
         {
             var QtdeTProdutos = 2;
 
-            var items = await _context.Clientes.ToListAsync();
-            var pagedItems = items.Skip((pagina - 1) * QtdeTProdutos)
-                                  .Take(QtdeTProdutos).ToList();
+            var items = await _context.Produtos.OrderBy(c => c.Nome).ToListAsync();
+            //var pagedItems = items.Skip((pagina - 1) * QtdeTProdutos)
+            //                      .Take(QtdeTProdutos).ToList();
 
             //Passando os dados e informações de paginação para a view
             ViewBag.QtdePaginas = (int)Math.Ceiling((double)items.Count() / QtdeTProdutos);
-            ViewBag.PaginaAtal = pagina;
+            ViewBag.PaginaAtual = pagina;
+            ViewBag.QtdeTProdutos = QtdeTProdutos;
 
-            return View(pagedItems);
+            return View(items);
             //return View(await _context.Produtos.ToListAsync());
         }
 

@@ -18,15 +18,15 @@ namespace AulaDeASPNet.Controllers
         {
             var QtdeTClientes = 2;
 
-            var items = await _context.Clientes.ToListAsync();
-            var pagedItems = items.Skip((pagina - 1) * QtdeTClientes)
-                                  .Take(QtdeTClientes).ToList();
+            var items = await _context.Clientes.OrderBy(c => c.Nome).ToListAsync();
+            //var pagedItems = items.Skip((pagina - 1) * QtdeTClientes).Take(QtdeTClientes).ToList();
 
             //Passando os dados e informações de paginação para a view
-            ViewBag.QtdePaginas = (int)Math.Ceiling((double)items.Count() / QtdeTClientes);
-            ViewBag.PaginaAtal = pagina;
+            ViewBag.QtdePaginas = (int)Math.Ceiling((double)items.Count / QtdeTClientes);
+            ViewBag.PaginaAtual = pagina;
+            ViewBag.QtdeTClientes = QtdeTClientes;
 
-            return View(pagedItems);
+            return View(items);
             //return View(await _context.Clientes.ToListAsync());
         }
 
